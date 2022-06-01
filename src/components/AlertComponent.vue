@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { computed, watch, reactive } from 'vue';
-import { useMainStore } from '@/stores/main';
-
-const store = useMainStore();
 
 const textList = reactive<string[]>([]);
-const text = computed(() => store.alertText);
+const text = computed(() => '');
 const removeValue = (value: string) => {
   textList.includes(value) && textList.splice(textList.indexOf(value), 1);
 };
