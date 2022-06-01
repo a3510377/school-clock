@@ -1,0 +1,83 @@
+{
+  "name": "test",
+  "private": true,
+  "version": "0.0.0",
+  "main": "dist/electron-main/index.js",
+  "scripts": {
+    "dev": "cross-env web=1 vite --host",
+    "dev:electron": "vite",
+    "build": "vue-tsc --noEmit && cross-env web=1 vite build",
+    "build-electron": "dotenv rimraf dist && vite build && electron-builder",
+    "preview": "yarn build && cls && vite preview"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cross-env": "^7.0.3",
+    "events": "^3.3.0",
+    "leaflet": "^1.8.0",
+    "pinia": "^2.0.14",
+    "sass": "^1.52.1",
+    "vue": "^3.2.25",
+    "vue-router": "^4.0.15"
+  },
+  "devDependencies": {
+    "@types/events": "^3.0.0",
+    "@types/leaflet": "^1.7.10",
+    "@types/node": "^17.0.35",
+    "@types/ws": "^8.5.3",
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/parser": "^5.26.0",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "@vue/eslint-config-typescript": "^10.0.0",
+    "electron": "^18.2.1",
+    "electron-builder": "^23.0.3",
+    "electron-devtools-installer": "^3.2.0",
+    "eslint": "^8.16.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^9.0.1",
+    "prettier": "^2.6.2",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.7.2",
+    "vite": "^2.9.9",
+    "vite-plugin-electron": "^0.4.5",
+    "vue-tsc": "^0.34.7"
+  },
+  "build": {
+    "appId": "com.test.desktop",
+    "productName": "test",
+    "asar": true,
+    "copyright": "Copyright © 2022 a3510377",
+    "directories": {
+      "output": "release/${version}"
+    },
+    "files": [
+      "dist"
+    ],
+    "mac": {
+      "artifactName": "${productName}_${version}.${ext}",
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}_${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}
