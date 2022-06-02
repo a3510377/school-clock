@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { useAppStore } from '@/stores/modules/app';
 
+import { useAppStore } from '@/stores/modules/app';
 import AlertComponent from '@/components/AlertComponent.vue';
 
 const appStore = useAppStore();

@@ -5,10 +5,8 @@ export interface BaseConfigType {
   repeat: boolean;
   /** week | 星期 */
   weeks: boolean[];
-  /** enable | 是否啟用 */
-  enable: boolean;
 }
-export interface ClockConfigType extends BaseConfigType {
+export interface AlarmClockConfigType extends BaseConfigType {
   /** audio path | 音樂路徑 */
   audio: string;
   /** play once | 不重複 */
@@ -17,10 +15,18 @@ export interface ClockConfigType extends BaseConfigType {
 export type TabConfigType = BaseConfigType;
 
 export interface TabType {
+  /** id | ID */
   id: string;
+  /** name | 名 */
   name: string;
+  /** config | 設定 */
   config?: TabConfigType;
 }
-export interface ClockType {
+export interface AlarmClockType {
+  /** alarm clock name | 鬧鐘名 */
   name: string;
+  /** alarm clock enable | 是否啟用鬧鐘 */
+  enable: boolean;
+  /** alarm clock config | 鬧鐘設定 */
+  config: AlarmClockConfigType;
 }

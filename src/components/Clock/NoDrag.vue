@@ -7,12 +7,27 @@
 </template>
 
 <script lang="ts" setup>
-import {} from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
-const props = defineProps({
-  second: { type: Number, required: true },
-  minute: { type: Number, required: true },
-  hour: { type: Number, required: true },
+import { getTime } from '@/utils/Time';
+
+const hourEl = ref<HTMLDivElement>();
+const minuteEl = ref<HTMLDivElement>();
+const secondEl = ref<HTMLDivElement>();
+
+onMounted(() => {
+  const updateClock = () => {
+    if (!(hourEl.value && minuteEl.value && secondEl.value)) return;
+    const { hour, minute, second } = getTime().deg;
+
+    hourEl.value.style.transform = `rotate(${~~hour})`;
+    minuteEl.value.style.transform = `rotate(${minute})`;
+    secondEl.value.style.transform = `rotate(${second})`;
+  };
+  updateClock();
+
+  const loop = setInterval(updateClock, 1e3);
+  onUnmounted(() => clearInterval(loop));
 });
 </script>
 
