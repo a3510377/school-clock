@@ -8,8 +8,13 @@ import {
 const routes: RouteRecordRaw[] = [
   {
     name: 'Home',
+    path: '/test',
+    component: () => import('@/views/Main/index.vue'),
+  },
+  {
+    name: 'a',
     path: '/',
-    component: () => import('@/views/HomePage.vue'),
+    component: () => import('@/views/Clock/index.vue'),
   },
 ];
 

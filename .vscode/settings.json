@@ -1,4 +1,19 @@
 {
   "files.eol": "\n",
-  "datapack.lint.eol": "LF"
+  "datapack.lint.eol": "LF",
+
+  "editor.tabSize": 2,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+
+  /* stylelint */
+  "stylelint.enable": true,
+  "stylelint.validate": ["vue", "css", "scss", "sass"],
+
+  "eslint.alwaysShowStatus": true,
+  "commentTranslate.multiLineMerge": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

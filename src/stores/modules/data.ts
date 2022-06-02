@@ -3,16 +3,13 @@ import { defineStore } from 'pinia';
 import { ThemeEnum } from '@/enums/app';
 import { DefaultThemeMode } from '@/settings/default';
 
-export interface AppStoreType {
-  /** theme modes | 主題模式 */
-  theme?: ThemeEnum;
+export interface DataStoreType {
+  tabs: string[];
 }
 
 export const useAppStore = defineStore({
   id: 'app',
-  state: (): AppStoreType => ({
-    theme: void 0,
-  }),
+  state: (): DataStoreType => ({}),
   getters: {
     getThemeMode(): ThemeEnum {
       return this.theme || DefaultThemeMode;
