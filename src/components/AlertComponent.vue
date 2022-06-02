@@ -25,26 +25,26 @@ watch(text, (value) => {
 
 <style scoped lang="scss">
 .alert-box {
-  z-index: 999;
-  display: flex;
-
   position: fixed;
   top: 10px;
   left: 50%;
+  z-index: 999;
+  display: flex;
   width: initial;
   height: initial;
-  user-select: none;
   margin: auto;
   transform: translate(-50%);
+  user-select: none;
+
   .alert-message {
     display: flex;
+    min-width: 200px;
+    min-height: 40px;
+    background: #fff;
+    border-radius: 5px;
     align-items: center;
     justify-content: center;
 
-    min-width: 200px;
-    min-height: 40px;
-    border-radius: 5px;
-    background: #fff;
     .alert-close {
       position: absolute;
       top: 0;
@@ -52,11 +52,12 @@ watch(text, (value) => {
       width: 15px;
       height: 15px;
       margin: 5px;
-      border-radius: 50%;
-      text-align: center;
-      line-height: 15px;
       font-size: 12px;
+      line-height: 15px;
+      text-align: center;
       cursor: pointer;
+      border-radius: 50%;
+
       &:hover {
         background: #ccc;
       }
