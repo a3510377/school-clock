@@ -19,7 +19,7 @@ onUnmounted(() => clearInterval(loop));
 </script>
 
 <template>
-  <div>
+  <div class="clock-content">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="500"
@@ -83,6 +83,14 @@ onUnmounted(() => clearInterval(loop));
 </template>
 
 <style lang="scss" scoped>
+.clock-center {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
 .clock {
   height: 100px;
 }
