@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted, reactive } from 'vue';
 
-import { getTime } from '@/utils/Time';
+import { getTimeAngle } from '@/utils/Time';
 
 const timeDeg = reactive({ hours: 0, minutes: 0, seconds: 0 });
 
 const updateClock = () => {
-  const { hour, minute, second } = getTime().deg;
+  const { hour, minute, second } = getTimeAngle();
   timeDeg.hours = ~~hour;
   timeDeg.minutes = minute;
   timeDeg.seconds = second;

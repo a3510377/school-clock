@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
 
@@ -20,12 +21,10 @@ const createWindow = () => {
 
     win.loadURL(URL);
   }
-  if (import.meta.env.DEV) win.webContents.openDevTools();
-  else {
-    win.webContents.on('devtools-opened', () => {
-      win.webContents.closeDevTools();
-    });
-  }
+  win.webContents.openDevTools();
+  // win.webContents.on('devtools-opened', () => {
+  //   win.webContents.closeDevTools();
+  // });
 };
 
 app.whenReady().then(() => {

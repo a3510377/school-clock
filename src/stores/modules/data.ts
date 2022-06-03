@@ -1,42 +1,72 @@
 import { defineStore } from 'pinia';
-
-import { ThemeEnum } from '@/enums/app';
-import { DefaultThemeMode } from '@/settings/default';
+import { AlarmClockType, TabType, timeFormatType } from 'types/data';
+import { formatTime, getTime } from '@/utils/Time';
 
 export interface DataStoreType {
-  tabs: string[];
+  tabs: TabType[];
+  done?: timeFormatType;
 }
 
-export const useAppStore = defineStore({
-  id: 'app',
-  state: (): DataStoreType => ({}),
+export const useDataStore = defineStore({
+  id: 'data',
+  state: (): DataStoreType => ({ tabs: [] }),
   getters: {
-    getThemeMode(): ThemeEnum {
-      return this.theme || DefaultThemeMode;
+    getTabById(): (id: string) => TabType | undefined {
+      return (id: string) => this.tabs.find((tab) => tab.id === id);
+    },
+    getTabs(): TabType[] {
+      return this.tabs;
+    },
+    getAllAlarmClocks(): AlarmClockType[] {
+      const alarmClocks: AlarmClockType[] = [];
+
+      this.tabs.forEach((tab) => alarmClocks.push(...tab.AlarmClocks));
+
+      return alarmClocks;
+    },
+    getTabAlarmClocks(): (id: string) => AlarmClockType[] {
+      return (id) => this.getTabById(id)?.AlarmClocks || [];
+    },
+    getEnabledAlarmClocks(): AlarmClockType[] {
+      const alarmClocks: AlarmClockType[] = [];
+      const now = getTime();
+
+      this.tabs
+        .filter((tab) => tab.enable && tab.config?.weeks?.includes(now.worker))
+        .forEach((tab) => alarmClocks.push(...tab.AlarmClocks));
+
+      return alarmClocks;
+    },
+    hasNowAlarmClock(): AlarmClockType | undefined {
+      const enableAlarmClocks: AlarmClockType[] = this.getEnabledAlarmClocks;
+      const timeString = formatTime();
+
+      const time = enableAlarmClocks.find(
+        (alarmClock) => alarmClock.time === timeString
+      );
+
+      if (time) {
+        if (this.done === timeString) return;
+        // eslint-disable-next-line consistent-return
+        return time;
+      }
+      this.done &&= void 0;
     },
   },
   actions: {
-    /** set theme modes | 設定主題模式 */
-    setThemeMode(theme: ThemeEnum | boolean | string): void {
-      const schemes = <[keyof typeof ThemeEnum]>Object.keys(ThemeEnum);
-      const html = document.querySelector('html');
-
-      let editTheme: ThemeEnum = DefaultThemeMode;
-      if (typeof theme === 'string' && (<string[]>schemes).includes(theme)) {
-        localStorage.setItem('theme', theme);
-        editTheme = ThemeEnum[<keyof typeof ThemeEnum>theme];
-      } else if (typeof theme === 'boolean') {
-        editTheme = theme ? ThemeEnum.DARK : ThemeEnum.LIGHT;
-      } else localStorage.removeItem('theme');
-
-      for (const _theme of Object.keys(ThemeEnum)) {
-        document.body.classList.remove(_theme);
-      }
-
-      html?.setAttribute('data-theme', editTheme);
-      html?.classList.add(editTheme);
-
-      this.theme = editTheme;
+    setTabs(...tabs: TabType[]): void {
+      this.tabs = tabs;
+    },
+    pushTab(...tabs: TabType[]): void {
+      this.tabs.push(...tabs);
+    },
+    deleteTabFromId(id: string): void {
+      const index = this.tabs.findIndex((tab) => tab.id === id);
+      if (index === -1) return;
+      this.deleteTabFromIndex(index);
+    },
+    deleteTabFromIndex(index: number): void {
+      this.tabs.splice(index, 1);
     },
   },
 });

@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted, ref } from 'vue';
 
-import { getTime } from '@/utils/Time';
+import { getTimeAngle } from '@/utils/Time';
 
 const hourEl = ref<HTMLDivElement>();
 const minuteEl = ref<HTMLDivElement>();
@@ -18,7 +18,7 @@ const secondEl = ref<HTMLDivElement>();
 onMounted(() => {
   const updateClock = () => {
     if (!(hourEl.value && minuteEl.value && secondEl.value)) return;
-    const { hour, minute, second } = getTime().deg;
+    const { hour, minute, second } = getTimeAngle();
 
     hourEl.value.style.transform = `rotate(${~~hour})`;
     minuteEl.value.style.transform = `rotate(${minute})`;

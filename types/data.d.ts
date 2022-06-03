@@ -1,14 +1,14 @@
-export type Bit2 = '0' | '1';
+import type { DeepPartial } from './utils';
+
+export type timeFormatType = `${string}:${string}`;
 
 export interface BaseConfigType {
   /** repeat | 重複 */
   repeat: boolean;
   /** week | 星期 */
-  weeks: boolean[];
+  weeks: number[];
 }
 export interface AlarmClockConfigType extends BaseConfigType {
-  /** audio path | 音樂路徑 */
-  audio: string;
   /** play once | 不重複 */
   once: boolean;
 }
@@ -20,7 +20,11 @@ export interface TabType {
   /** name | 名 */
   name: string;
   /** config | 設定 */
-  config?: TabConfigType;
+  config?: DeepPartial<TabConfigType>;
+  /** alarm clocks | 鬧鐘 */
+  AlarmClocks: AlarmClockType[];
+  /** tab enable | 是否啟用 tab */
+  enable: boolean;
 }
 export interface AlarmClockType {
   /** alarm clock name | 鬧鐘名 */
@@ -28,5 +32,8 @@ export interface AlarmClockType {
   /** alarm clock enable | 是否啟用鬧鐘 */
   enable: boolean;
   /** alarm clock config | 鬧鐘設定 */
-  config: AlarmClockConfigType;
+  config?: DeepPartial<AlarmClockConfigType>;
+  time: timeFormatType;
+  /** audio path | 音樂路徑 */
+  audio: string;
 }

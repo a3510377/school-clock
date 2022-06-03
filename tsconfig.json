@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "useDefineForClassFields": true,
     "module": "esnext",
+    "target": "es6",
+    "removeComments": true,
+    "useDefineForClassFields": true,
+    "allowSyntheticDefaultImports": true,
+    "importHelpers": true,
+    "skipLibCheck": true,
     "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
@@ -10,13 +14,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "lib": ["esnext", "dom"],
-    "skipLibCheck": true,
-    "importHelpers": true,
+    "allowJs": true,
+    "lib": ["es6", "esnext", "dom", "dom.iterable"],
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "paths": { "@/*": ["./src/*"] }
   },
   "include": [
     "src/**/*.ts",
@@ -25,7 +26,9 @@
     "src/**/*.vue",
     "src/**/*.json",
     "types/**/*.ts",
-    "types/**/*.d.ts"
+    "types/**/*.d.ts",
+    "electron-main/**/*.ts",
+    "electron-preload/**/*.ts"
   ],
   "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]

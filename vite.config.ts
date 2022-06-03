@@ -12,9 +12,7 @@ const electronPlugins = process.env.web
   : [
       electron({
         main: { entry: 'electron-main/index.ts' },
-        preload: {
-          input: path.join(__dirname, './electron-preload/index.ts'),
-        },
+        preload: { input: path.join(__dirname, './electron-preload/index.ts') },
       }),
       electronRenderer(),
       polyfillExports(),
@@ -26,6 +24,7 @@ export default defineConfig({
   plugins: [vue(), ...electronPlugins],
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
   build: {
+    emptyOutDir: !!process.env.web,
     terserOptions: {
       compress: {
         // Prevent Infinity from being compressed to 1/0, may cause performance issues on Chrome
