@@ -7,24 +7,21 @@ import electronRenderer from 'vite-plugin-electron/renderer';
 import polyfillExports from 'vite-plugin-electron/polyfill-exports';
 import { fileURLToPath, URL } from 'url';
 
-const electronPlugins = process.env.web
-  ? []
-  : [
-      electron({
-        main: { entry: 'electron-main/index.ts' },
-        preload: { input: path.join(__dirname, './electron-preload/index.ts') },
-      }),
-      electronRenderer(),
-      polyfillExports(),
-    ];
-
 // https://vitejs.dev/config/
 export default defineConfig({
   base: process.env.VITE_BASE,
-  plugins: [vue(), ...electronPlugins],
+  plugins: [
+    vue(),
+    electron({
+      main: { entry: 'electron-main/index.ts' },
+      preload: { input: path.join(__dirname, './electron-preload/index.ts') },
+    }),
+    electronRenderer(),
+    polyfillExports(),
+  ],
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
   build: {
-    emptyOutDir: !!process.env.web,
+    emptyOutDir: false,
     terserOptions: {
       compress: {
         // Prevent Infinity from being compressed to 1/0, may cause performance issues on Chrome

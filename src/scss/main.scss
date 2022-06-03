@@ -6,6 +6,7 @@ html,
   width: 100%;
   height: 100%;
 }
+
 img {
   user-select: none;
   -webkit-user-drag: none;
@@ -13,8 +14,8 @@ img {
 
 // global styles
 * {
-  margin: 0;
   padding: 0;
+  margin: 0;
   box-sizing: border-box;
   user-select: none;
   -webkit-user-drag: none;

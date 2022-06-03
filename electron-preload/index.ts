@@ -1,3 +1,3 @@
 import os from 'os';
 
-console.log(os.platform()); // test
+console.log('platform', os.platform());
