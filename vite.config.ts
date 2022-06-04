@@ -7,6 +7,8 @@ import electronRenderer from 'vite-plugin-electron/renderer';
 import polyfillExports from 'vite-plugin-electron/polyfill-exports';
 import { fileURLToPath, URL } from 'url';
 
+import svgIcon from './plugin/svgIcon';
+
 // https://vitejs.dev/config/
 export default defineConfig({
   base: process.env.VITE_BASE,
@@ -18,6 +20,7 @@ export default defineConfig({
     }),
     electronRenderer(),
     polyfillExports(),
+    svgIcon(),
   ],
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
   build: {
@@ -28,10 +31,19 @@ export default defineConfig({
         keep_infinity: true,
         drop_console: false,
       },
+      format: { comments: false },
     },
     minify: 'terser',
+    sourcemap: false,
     // Speed up packing
     brotliSize: false,
     chunkSizeWarningLimit: 2000,
+    rollupOptions: {
+      output: {
+        entryFileNames: `assets/js/[name]-[hash].js`,
+        chunkFileNames: `assets/js/[name]-[hash].js`,
+        assetFileNames: `assets/[ext]/[name]-[hash].[ext]`,
+      },
+    },
   },
 });

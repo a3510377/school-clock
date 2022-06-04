@@ -20,9 +20,9 @@ onMounted(() => {
   } else appStore.setThemeMode(storage);
 });
 
-for (let _ = 0; _ <= 10; _++) {
+for (let _ = 0; _ <= 15; _++) {
   dataStore.pushTab({
-    name: 'test',
+    name: `test${_}`,
     id: makeId(),
     AlarmClocks: [],
     enabled: false,

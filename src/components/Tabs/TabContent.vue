@@ -1,18 +1,17 @@
 <template>
   <span
     :data-tab-id="tab.id"
-    :class="{ enabled: tab.enabled, active: tab.id === $route.params.id }"
+    :class="{ enabled: tab.enabled, active: tab.id === route.params.id }"
     :checked="tab.enabled ? '' : void 0"
     :aria-checked="tab.enabled"
     class="tab"
     tabindex="0"
     role="checkbox"
     @click="toHref"
-    @click.middle="tab.enabled = false"
   >
     <div class="tab-content">
       <!-- eslint-disable-next-line vue/no-v-text-v-html-on-component -->
-      <data-lsp :lsp="`${tab.name}`" v-text="tab.name" />
+      <div :lsp="`${tab.name}`" v-text="tab.name" />
       <div
         :aria-label="`點擊${tab.enabled ? '關閉' : '開啟'}`"
         :title="`點擊${tab.enabled ? '關閉' : '開啟'}`"
@@ -26,21 +25,25 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 import { TabType } from 'types/data';
 import { useDataStore } from '@/stores/modules/data';
 
-const props = defineProps<{
-  dataTab: TabType;
-}>();
+const props = defineProps<{ dataTab: TabType }>();
 
+const route = useRoute();
 const router = useRouter();
 const dataStore = useDataStore();
 const tab = computed(() => <TabType>dataStore.getTabById(props.dataTab.id));
 
 const changeTabEnabled = () => (tab.value.enabled = !tab.value.enabled);
-const toHref = () => router.push({ path: `/tabs/${tab.value.id}` });
+const toHref = (ev: Event) => {
+  const target = <HTMLElement>ev.target;
+
+  if (target.classList.contains('toggle-on')) return;
+  router.push(route.params.id === tab.value.id ? '/' : `/tabs/${tab.value.id}`);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -63,7 +66,7 @@ const toHref = () => router.push({ path: `/tabs/${tab.value.id}` });
     .tab-content,
     .tab-content::after,
     .tab-content::before {
-      background-color: #000;
+      background-color: transparent;
     }
   }
 
@@ -95,12 +98,12 @@ const toHref = () => router.push({ path: `/tabs/${tab.value.id}` });
 
     &::before {
       left: -10px;
-      border-radius: 0 0 20px;
+      border-radius: 12px 0 20px;
     }
 
     &::after {
       right: -10px;
-      border-radius: 0 0 0 20px;
+      border-radius: 0 10px 0 20px;
     }
 
     .toggle-on {
@@ -131,10 +134,12 @@ const toHref = () => router.push({ path: `/tabs/${tab.value.id}` });
 
   &::before {
     left: -10px;
+    border-top-left-radius: 50%;
   }
 
   &::after {
     right: -10px;
+    border-top-right-radius: 50%;
   }
 }
 </style>

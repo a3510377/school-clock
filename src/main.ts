@@ -1,4 +1,5 @@
 import { createApp } from 'vue';
+import 'virtual:svg-icons-register';
 
 import router from './router';
 
