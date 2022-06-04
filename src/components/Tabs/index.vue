@@ -10,13 +10,28 @@
     </div>
     <div class="window-controls-container">
       <div class="window-minimize">
-        <SvgIcon name="controls-minimize" color="white" />
+        <SvgIcon
+          width="18px"
+          height="18px"
+          name="controls-minimize"
+          color="white"
+        />
       </div>
       <div class="window-max-restore">
-        <SvgIcon name="controls-maxRestore" color="white" />
+        <SvgIcon
+          width="18px"
+          height="18px"
+          name="controls-maxRestore"
+          color="white"
+        />
       </div>
       <div class="window-close">
-        <SvgIcon name="controls-close" color="white" />
+        <SvgIcon
+          width="18px"
+          height="18px"
+          name="controls-close"
+          color="white"
+        />
       </div>
     </div>
   </div>
@@ -61,11 +76,6 @@ const scrollEv = (ev: WheelEvent) => {
       min-width: 85px;
     }
 
-    // &::-webkit-scrollbar {
-    //   display: block;
-    //   height: 1px;
-    // }
-
     &::-webkit-scrollbar {
       width: 5px;
       height: 8px;
@@ -75,7 +85,6 @@ const scrollEv = (ev: WheelEvent) => {
     &::-webkit-scrollbar-thumb {
       background-color: #aaa;
     }
-    // background: transparent;
   }
 
   .window-controls-container {
@@ -84,19 +93,12 @@ const scrollEv = (ev: WheelEvent) => {
     box-shadow: -5px -10px 10px #000;
 
     > div {
+      display: flex;
+      margin: 0 2px;
       cursor: pointer;
+      align-items: center;
+      justify-content: center;
     }
-
-    .window-minimize {
-      width: 35px;
-      height: 35px;
-    }
-
-    /* .window-max-restore {
-    }
-
-    .window-close {
-    } */
   }
 }
 </style>
