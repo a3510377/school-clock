@@ -1,27 +1,32 @@
 <template>
-  <router-link
-    :to="`/tabs/${tab.id}`"
-    class="tab"
+  <span
     :data-tab-id="tab.id"
-    :class="{ enabled: tab.enabled }"
+    :class="{ enabled: tab.enabled, active: tab.id === $route.params.id }"
+    :checked="tab.enabled ? '' : void 0"
+    :aria-checked="tab.enabled"
+    class="tab"
     tabindex="0"
-    @click.middle.stop.prevent="tab.enabled = false"
+    role="checkbox"
+    @click="toHref"
+    @click.middle="tab.enabled = false"
   >
     <div class="tab-content">
       <!-- eslint-disable-next-line vue/no-v-text-v-html-on-component -->
       <data-lsp :lsp="`${tab.name}`" v-text="tab.name" />
       <div
+        :aria-label="`點擊${tab.enabled ? '關閉' : '開啟'}`"
         :title="`點擊${tab.enabled ? '關閉' : '開啟'}`"
         class="toggle-on"
         tabindex="2"
         @click.prevent="changeTabEnabled"
       />
     </div>
-  </router-link>
+  </span>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 
 import { TabType } from 'types/data';
 import { useDataStore } from '@/stores/modules/data';
@@ -30,10 +35,12 @@ const props = defineProps<{
   dataTab: TabType;
 }>();
 
+const router = useRouter();
 const dataStore = useDataStore();
 const tab = computed(() => <TabType>dataStore.getTabById(props.dataTab.id));
 
 const changeTabEnabled = () => (tab.value.enabled = !tab.value.enabled);
+const toHref = () => router.push({ path: `/tabs/${tab.value.id}` });
 </script>
 
 <style lang="scss" scoped>
@@ -46,7 +53,7 @@ const changeTabEnabled = () => (tab.value.enabled = !tab.value.enabled);
   max-width: 200px;
   text-decoration: none;
 
-  &:not(.router-link-active) {
+  &:not(.active) {
     z-index: 1;
     background-color: #000;
     opacity: 0.8;

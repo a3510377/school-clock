@@ -29,7 +29,7 @@ const tabsLength = ref(tabs.value.length);
   .tab {
     // TODO add width
     /* stylelint-disable-next-line value-keyword-case */
-    // width: v-bind(tabsLength);
+    width: calc(100% / v-bind(tabsLength));
   }
 }
 </style>

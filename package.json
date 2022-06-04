@@ -18,7 +18,7 @@
     "sass": "^1.52.1",
     "sound-play": "^1.1.0",
     "vue": "^3.2.25",
-    "vue-router": "^4.0.15"
+    "vue-router": "^4.0.13"
   },
   "devDependencies": {
     "@types/events": "^3.0.0",
