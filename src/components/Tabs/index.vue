@@ -84,6 +84,7 @@ const scrollEv = (ev: WheelEvent) => {
 
     &::-webkit-scrollbar-thumb {
       background-color: #aaa;
+      border-radius: 2px;
     }
   }
 
