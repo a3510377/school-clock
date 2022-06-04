@@ -83,7 +83,7 @@ onUnmounted(() => clearInterval(loop));
 </template>
 
 <style lang="scss" scoped>
-.clock-center {
+.clock-content {
   display: flex;
   width: 100%;
   height: 100%;
