@@ -11,7 +11,7 @@
   >
     <div class="tab-content">
       <!-- eslint-disable-next-line vue/no-v-text-v-html-on-component -->
-      <div :lsp="`${tab.name}`" v-text="tab.name" />
+      <div class="tab-name" v-text="tab.name" />
       <div
         :aria-label="`點擊${tab.enabled ? '關閉' : '開啟'}`"
         :title="`點擊${tab.enabled ? '關閉' : '開啟'}`"
@@ -113,7 +113,7 @@ const toHref = (ev: Event) => {
       border-radius: 50%;
     }
 
-    data-lsp {
+    .tab-name {
       width: 90%;
       overflow: hidden;
       text-overflow: ellipsis;

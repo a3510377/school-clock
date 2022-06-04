@@ -66,8 +66,7 @@ const scrollEv = (ev: WheelEvent) => {
     display: flex;
     width: 100%;
     height: 100%;
-    padding-top: 4px;
-    padding-left: 8px;
+    padding: 4px 6px 0 8px;
     overflow-y: hidden;
 
     .tab {
