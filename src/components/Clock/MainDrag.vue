@@ -1,15 +1,21 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted, reactive } from 'vue';
 
-import { getTimeAngle } from '@/utils/Time';
+import { getTimeAngle, getTime } from '@/utils/Time';
 
 const timeDeg = reactive({ hours: 0, minutes: 0, seconds: 0 });
+const timeClock = reactive({ hours: 0, minutes: 0, seconds: 0 });
 
 const updateClock = () => {
   const { hour, minute, second } = getTimeAngle();
   timeDeg.hours = ~~hour;
   timeDeg.minutes = minute;
   timeDeg.seconds = second;
+
+  const { hours, minutes, seconds } = getTime();
+  timeClock.hours = hours;
+  timeClock.minutes = minutes;
+  timeClock.seconds = seconds;
 };
 
 const loop = setInterval(updateClock, 1e3);
@@ -79,6 +85,13 @@ onUnmounted(() => clearInterval(loop));
         <circle r="4" />
       </g>
     </svg>
+    <div class="string-clock">
+      <div
+        v-for="([key, value], index) in Object.entries(timeClock)"
+        :key="key"
+        v-text="`${index ? ':' : ''}${value.toString().padStart(2, '0')}`"
+      />
+    </div>
   </div>
 </template>
 
@@ -89,5 +102,11 @@ onUnmounted(() => clearInterval(loop));
   height: 100%;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+
+  .string-clock {
+    display: flex;
+    font-size: 2.5em;
+  }
 }
 </style>

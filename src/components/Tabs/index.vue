@@ -9,6 +9,7 @@
       />
     </div>
     <div class="window-controls-container">
+      <div class="air-drag"></div>
       <div class="window-minimize">
         <SvgIcon
           width="18px"
@@ -98,6 +99,18 @@ const scrollEv = (ev: WheelEvent) => {
       cursor: pointer;
       align-items: center;
       justify-content: center;
+
+      &:last-child {
+        margin-right: 12px;
+      }
+    }
+
+    .air-drag {
+      width: 50px;
+      height: 100%;
+      cursor: initial;
+      user-select: none;
+      -webkit-app-region: drag;
     }
   }
 }

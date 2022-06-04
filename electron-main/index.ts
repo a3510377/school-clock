@@ -4,12 +4,13 @@ import path from 'path';
 
 import './events';
 
-const isDevelopment: boolean = process.env.NODE_ENV !== 'production';
-
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 1024,
     height: 768,
+    center: true,
+    minWidth: 600,
+    minHeight: 600,
     webPreferences: {
       contextIsolation: false,
       nodeIntegration: true,
@@ -20,10 +21,9 @@ const createWindow = () => {
     resizable: true,
     minimizable: true,
     maximizable: true,
-    frame: true,
-    minWidth: 0,
-    minHeight: 0,
+    frame: false,
     modal: true,
+    icon: path.join(__dirname, '../../src/assets/alarmClockIcon.png'),
   });
 
   win.loadURL(

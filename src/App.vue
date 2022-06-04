@@ -22,7 +22,7 @@ onMounted(() => {
 
 for (let _ = 0; _ <= 15; _++) {
   dataStore.pushTab({
-    name: `test${_}`,
+    name: `test-${_}`,
     id: makeId(),
     AlarmClocks: [],
     enabled: false,
