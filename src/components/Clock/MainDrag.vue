@@ -90,8 +90,4 @@ onUnmounted(() => clearInterval(loop));
   align-items: center;
   justify-content: center;
 }
-
-.clock {
-  height: 100px;
-}
 </style>

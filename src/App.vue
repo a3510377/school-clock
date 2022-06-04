@@ -4,6 +4,7 @@ import { onMounted, onUnmounted } from 'vue';
 import { useAppStore } from '@/stores/modules/app';
 import { useDataStore } from '@/stores/modules/data';
 import AlertComponent from '@/components/AlertComponent.vue';
+import { makeId } from './utils/id';
 
 const appStore = useAppStore();
 const dataStore = useDataStore();
@@ -18,6 +19,16 @@ onMounted(() => {
     mql.addEventListener('change', (e) => appStore.setThemeMode(e.matches));
   } else appStore.setThemeMode(storage);
 });
+
+for (let _ = 0; _ <= 10; _++) {
+  dataStore.pushTab({
+    name: 'test',
+    id: makeId(),
+    AlarmClocks: [],
+    enabled: false,
+  });
+}
+
 (async () => {
   if (import.meta.env.DEV) return;
   try {
@@ -39,7 +50,9 @@ onMounted(() => {
 
 <template>
   <router-view />
-  <AlertComponent />
+  <teleport to="body">
+    <AlertComponent />
+  </teleport>
 </template>
 
 <style scoped lang="scss">

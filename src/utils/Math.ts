@@ -7,3 +7,13 @@ export const roundDecimal = (val: number, precision = 0) => {
     Math.round(Math.round(val * 10 ** (precision + 1)) / 10) / 10 ** precision
   );
 };
+
+export const UUID = () => {
+  let d = Date.now() + performance.now();
+
+  return 'xxxxxx-yy-yyx'.replace(/[xy]/g, (c) => {
+    const r = (d + Math.random() * 32) % 32 | 0;
+    d = Math.floor(d / 32);
+    return (c === 'x' ? r : (r & 0x3) | 0x8).toString(32);
+  });
+};

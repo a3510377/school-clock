@@ -7,12 +7,12 @@ import {
 
 const routes: RouteRecordRaw[] = [
   {
-    name: 'Home',
-    path: '/test',
-    component: () => import('@/views/Main/index.vue'),
+    name: 'TAB',
+    path: '/tabs/:id',
+    component: () => import('@/views/Clock/index.vue'),
   },
   {
-    name: 'a',
+    name: 'Home',
     path: '/',
     component: () => import('@/views/Clock/index.vue'),
   },

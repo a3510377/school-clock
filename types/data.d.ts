@@ -24,13 +24,13 @@ export interface TabType {
   /** alarm clocks | 鬧鐘 */
   AlarmClocks: AlarmClockType[];
   /** tab enable | 是否啟用 tab */
-  enable: boolean;
+  enabled: boolean;
 }
 export interface AlarmClockType {
   /** alarm clock name | 鬧鐘名 */
   name: string;
   /** alarm clock enable | 是否啟用鬧鐘 */
-  enable: boolean;
+  enabled: boolean;
   /** alarm clock config | 鬧鐘設定 */
   config?: DeepPartial<AlarmClockConfigType>;
   time: timeFormatType;

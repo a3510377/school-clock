@@ -9,7 +9,9 @@ export interface DataStoreType {
 
 export const useDataStore = defineStore({
   id: 'data',
-  state: (): DataStoreType => ({ tabs: [] }),
+  state: (): DataStoreType => ({
+    tabs: [],
+  }),
   getters: {
     getTabById(): (id: string) => TabType | undefined {
       return (id: string) => this.tabs.find((tab) => tab.id === id);
@@ -32,7 +34,7 @@ export const useDataStore = defineStore({
       const now = getTime();
 
       this.tabs
-        .filter((tab) => tab.enable && tab.config?.weeks?.includes(now.worker))
+        .filter((tab) => tab.enabled && tab.config?.weeks?.includes(now.worker))
         .forEach((tab) => alarmClocks.push(...tab.AlarmClocks));
 
       return alarmClocks;
@@ -67,6 +69,10 @@ export const useDataStore = defineStore({
     },
     deleteTabFromIndex(index: number): void {
       this.tabs.splice(index, 1);
+    },
+    toggleTabEnabled(id: string): void {
+      const tab = this.getTabById(id);
+      if (tab) tab.enabled = !tab.enabled;
     },
   },
 });
