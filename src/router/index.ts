@@ -8,16 +8,8 @@ import {
 import viewClock from '@/views/Clock/index.vue';
 
 const routes: RouteRecordRaw[] = [
-  {
-    name: 'TAB',
-    path: '/tabs/:id',
-    component: viewClock,
-  },
-  {
-    name: 'Home',
-    path: '/',
-    component: viewClock,
-  },
+  { name: 'TAB', path: '/tabs/:id', component: viewClock },
+  { name: 'Home', path: '/', component: viewClock },
 ];
 
 const router: Router = createRouter({
