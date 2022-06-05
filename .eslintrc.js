@@ -103,6 +103,8 @@ module.exports = {
     'vue/multi-word-component-names': ['error', { ignores: ['index', 'App'] }],
 
     'class-methods-use-this': 'off',
+
+    'consistent-return': 'off',
   },
   overrides: [
     { files: ['*.ts', '*.tsx'], rules: { 'no-dupe-class-members': 'off' } },

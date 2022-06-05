@@ -27,6 +27,8 @@ export interface TabType {
   enabled: boolean;
 }
 export interface AlarmClockType {
+  /** alarm clock ID | 鬧鐘 ID */
+  id: string;
   /** alarm clock name | 鬧鐘名 */
   name: string;
   /** alarm clock enable | 是否啟用鬧鐘 */

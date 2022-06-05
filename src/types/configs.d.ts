@@ -1,4 +1,4 @@
-import { ThemeEnum } from '@/enums/app';
+import type { ThemeEnum } from '@/enums/app';
 
 // TODO add type
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

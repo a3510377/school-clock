@@ -1,5 +1,5 @@
 import type { IpcRenderer } from 'electron/renderer';
-import * as vue from 'vue';
+import type * as vue from 'vue';
 
 export interface IElectronAPI {
   platform: string;

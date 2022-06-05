@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
-import { AlarmClockType, TabType, timeFormatType } from '@/types/data';
+
+import type { AlarmClockType, TabType, timeFormatType } from '@/types/data';
+
 import { formatTime, getTime } from '@/utils/Time';
 
 export interface DataStoreType {
@@ -39,6 +41,16 @@ export const useDataStore = defineStore({
 
       return alarmClocks;
     },
+    getAlarmClock(): (id: string) => AlarmClockType | undefined {
+      return (id: string): AlarmClockType | undefined => {
+        const tabs = this.getTabs;
+
+        for (const clocks of tabs.map((tab) => tab.AlarmClocks)) {
+          const clock = clocks.find((clock) => clock.id === id);
+          if (clock) return clock;
+        }
+      };
+    },
     hasNowAlarmClock(): AlarmClockType | undefined {
       const enableAlarmClocks: AlarmClockType[] = this.getEnabledAlarmClocks;
       const timeString = formatTime();
@@ -47,11 +59,8 @@ export const useDataStore = defineStore({
         (alarmClock) => alarmClock.time === timeString
       );
 
-      if (time) {
-        if (this.done === timeString) return;
-        // eslint-disable-next-line consistent-return
-        return time;
-      }
+      if (time) return this.done === timeString ? void 0 : time;
+
       this.done &&= void 0;
     },
   },
