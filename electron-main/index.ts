@@ -5,6 +5,8 @@ import os from 'os';
 import sound from 'sound-play';
 import { AlarmClockType } from '../src/types/data';
 
+const IS_PRO_MODE = import.meta.env.MODE === 'production';
+
 if (!app.requestSingleInstanceLock()) {
   app.quit();
   process.exit(0);
@@ -43,10 +45,10 @@ const createWindow = () => {
       : // eslint-disable-next-line dot-notation
         `http://${process.env['VITE_DEV_SERVER_HOST']}:${process.env['VITE_DEV_SERVER_PORT']}`
   );
-  win.webContents.openDevTools();
-  // win.webContents.on('devtools-opened', () => {
-  //   win.webContents.closeDevTools();
-  // });
+
+  if (IS_PRO_MODE) {
+    win.webContents.on('devtools-opened', win.webContents.closeDevTools);
+  } else win.webContents.openDevTools();
   win.once('ready-to-show', win.show);
 
   ipcMain
@@ -62,8 +64,6 @@ const createWindow = () => {
       ipcMain.emit('play-sound', alarmClock.audio, alarmClock.config?.repeat);
     })
     .on('BrowserWindow', (_event, args) => {
-      console.log(win, args);
-
       if (!win) return;
       if (args === 'maximize') {
         win.isMaximized() ? win.unmaximize() : win.maximize();
