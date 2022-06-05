@@ -101,5 +101,10 @@ module.exports = {
     'no-useless-return': 'off',
 
     'vue/multi-word-component-names': ['error', { ignores: ['index', 'App'] }],
+
+    'class-methods-use-this': 'off',
   },
+  overrides: [
+    { files: ['*.ts', '*.tsx'], rules: { 'no-dupe-class-members': 'off' } },
+  ],
 };
