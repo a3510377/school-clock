@@ -1,0 +1,42 @@
+productName: test
+appId: com.test.desktop
+
+asar: true
+copyright: Copyright © 2022 a3510377
+directories:
+  output: release/${version}
+
+files:
+  - dist
+  - public
+
+dmg:
+  icon: public/icons/icon.icns
+mac:
+  icon: public/icons/icon.icns
+  artifactName: '${productName}_${version}.${ext}'
+  target:
+    - dmg
+win:
+  icon: public/icons/icon.ico
+  legalTrademarks: legalTrademarks
+  target:
+    - target: nsis
+      arch:
+        - x64
+        - ia32
+  artifactName: '${productName}_${version}.${ext}'
+linux:
+  category: Utility.Passwords
+  executableName: cyapass
+  icon: public/icons/512x512.png
+nsis:
+  oneClick: false
+  perMachine: true
+  allowToChangeInstallationDirectory: true
+  deleteAppDataOnUninstall: false
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  installerIcon: public/icons/icon.ico
+  uninstallerIcon: public/icons/icon.ico
+  installerHeaderIcon: public/icons/icon.ico

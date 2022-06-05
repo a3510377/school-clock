@@ -1,8 +1,16 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
+import os from 'os';
+import sound from 'sound-play';
+import { AlarmClockType } from '../src/types/data';
 
-import './events';
+if (!app.requestSingleInstanceLock()) {
+  app.quit();
+  process.exit(0);
+}
+// eslint-disable-next-line dot-notation
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -23,12 +31,15 @@ const createWindow = () => {
     maximizable: true,
     frame: false,
     modal: true,
-    icon: path.join(__dirname, '../../src/assets/alarmClockIcon.png'),
+    icon: path.join(__dirname, '../alarmClockIcon.png'),
   });
+
+  if (os.release().startsWith('6.1')) app.disableHardwareAcceleration();
+  if (process.platform === 'win32') app.setAppUserModelId(app.getName());
 
   win.loadURL(
     app.isPackaged
-      ? 'app://./index.html'
+      ? path.join(__dirname, '../index.html')
       : // eslint-disable-next-line dot-notation
         `http://${process.env['VITE_DEV_SERVER_HOST']}:${process.env['VITE_DEV_SERVER_PORT']}`
   );
@@ -37,6 +48,28 @@ const createWindow = () => {
   //   win.webContents.closeDevTools();
   // });
   win.once('ready-to-show', win.show);
+
+  ipcMain
+    .on('play-sound', (_, audio: string, repeat = false) => {
+      sound
+        .play(audio)
+        .then(() => repeat && sound.play(audio))
+        // TODO add error handler
+        .catch(() => ({}));
+    })
+    .on('alarm-clock', (_, alarmClock: AlarmClockType) => {
+      // TODO add 通知
+      ipcMain.emit('play-sound', alarmClock.audio, alarmClock.config?.repeat);
+    })
+    .on('BrowserWindow', (_event, args) => {
+      console.log(win, args);
+
+      if (!win) return;
+      if (args === 'maximize') {
+        win.isMaximized() ? win.unmaximize() : win.maximize();
+      } else if (args === 'minimize') win.minimize();
+      else if (args === 'close') win.close();
+    });
 };
 
 app.whenReady().then(() => {

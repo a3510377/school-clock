@@ -27,7 +27,7 @@
 import { computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
-import { TabType } from 'types/data';
+import { TabType } from '@/types/data';
 import { useDataStore } from '@/stores/modules/data';
 
 const props = defineProps<{ dataTab: TabType }>();

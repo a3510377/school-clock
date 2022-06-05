@@ -1,25 +1,30 @@
 import {
   createRouter,
+  createWebHashHistory,
   createWebHistory,
   Router,
   RouteRecordRaw,
 } from 'vue-router';
+import viewClock from '@/views/Clock/index.vue';
 
 const routes: RouteRecordRaw[] = [
   {
     name: 'TAB',
     path: '/tabs/:id',
-    component: () => import('@/views/Clock/index.vue'),
+    component: viewClock,
   },
   {
     name: 'Home',
     path: '/',
-    component: () => import('@/views/Clock/index.vue'),
+    component: viewClock,
   },
 ];
 
 const router: Router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history:
+    import.meta.env.MODE === 'production'
+      ? createWebHashHistory(import.meta.env.BASE_URL)
+      : createWebHistory(import.meta.env.BASE_URL),
   routes,
 });
 

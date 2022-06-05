@@ -10,7 +10,11 @@
     </div>
     <div class="window-controls-container">
       <div class="air-drag"></div>
-      <div class="window-minimize">
+      <div
+        class="window-minimize"
+        data-event="minimize"
+        @click="windowOperation('minimize')"
+      >
         <SvgIcon
           width="18px"
           height="18px"
@@ -18,7 +22,11 @@
           color="white"
         />
       </div>
-      <div class="window-max-restore">
+      <div
+        class="window-max-restore"
+        data-event="maximize"
+        @click="windowOperation('maximize')"
+      >
         <SvgIcon
           width="18px"
           height="18px"
@@ -26,7 +34,11 @@
           color="white"
         />
       </div>
-      <div class="window-close">
+      <div
+        class="window-close"
+        data-event="close"
+        @click="windowOperation('close')"
+      >
         <SvgIcon
           width="18px"
           height="18px"
@@ -44,15 +56,20 @@ import { computed, ref } from 'vue';
 import { useDataStore } from '@/stores/modules/data';
 import TabContent from './TabContent.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
+import { BrowserWindowTypeArgs, Electron } from '@/utils/service';
 
 const dataApp = useDataStore();
 const tabs = computed(() => dataApp.tabs);
 const tabsLength = ref(tabs.value.length);
+const win = new Electron();
 
 const scrollEv = (ev: WheelEvent) => {
   const target = <HTMLElement>ev.target;
 
   target.scrollLeft += ev.deltaY;
+};
+const windowOperation = (type: BrowserWindowTypeArgs) => {
+  win.send('BrowserWindow', type);
 };
 </script>
 
@@ -91,9 +108,10 @@ const scrollEv = (ev: WheelEvent) => {
   .window-controls-container {
     z-index: 1;
     display: flex;
+    align-items: center;
     box-shadow: -5px -10px 10px #000;
 
-    > div {
+    [data-event] {
       display: flex;
       margin: 0 2px;
       cursor: pointer;

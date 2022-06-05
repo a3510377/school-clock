@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { AlarmClockType, TabType, timeFormatType } from 'types/data';
+import { AlarmClockType, TabType, timeFormatType } from '@/types/data';
 import { formatTime, getTime } from '@/utils/Time';
 
 export interface DataStoreType {

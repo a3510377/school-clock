@@ -1,12 +1,17 @@
 {
   "name": "test",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "```shell\r yarn\r yarn dev\r ```",
+  "copyright": "Copyright © 2022 a3510377",
   "main": "dist/electron-main/index.js",
   "scripts": {
     "dev": "vite",
-    "build": "rimraf dist && vue-tsc --noEmit && vite build && electron-builder",
-    "preview": "yarn build && cls && vite preview"
+    "build": "vite build",
+    "serve": "vite preview",
+    "el:dev": "vite serve",
+    "el:build": "rimraf dist && vue-tsc --noEmit && cross-env IS_ELECTRON=true vite build && electron-builder",
+    "el:generate-icons": "electron-icon-builder --input=./public/alarmClockIcon.png --output=public --flatten"
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -34,6 +39,7 @@
     "electron": "^18.2.1",
     "electron-builder": "^23.0.3",
     "electron-devtools-installer": "^3.2.0",
+    "electron-icon-builder": "^2.0.1",
     "eslint": "^8.16.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
@@ -54,39 +60,14 @@
     "vite-plugin-electron": "^0.4.5",
     "vue-tsc": "^0.34.7"
   },
-  "build": {
-    "appId": "com.test.desktop",
-    "productName": "test",
-    "asar": true,
-    "copyright": "Copyright © 2022 a3510377",
-    "directories": {
-      "output": "release/${version}"
-    },
-    "files": [
-      "dist"
-    ],
-    "mac": {
-      "artifactName": "${productName}_${version}.${ext}",
-      "target": [
-        "dmg"
-      ]
-    },
-    "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "artifactName": "${productName}_${version}.${ext}"
-    },
-    "nsis": {
-      "oneClick": false,
-      "perMachine": false,
-      "allowToChangeInstallationDirectory": true,
-      "deleteAppDataOnUninstall": false
-    }
-  }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a3510377/school-clock.git"
+  },
+  "keywords": [],
+  "author": "a3510377 <a102009102009@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/a3510377/school-clock/issues"
+  },
+  "homepage": "https://github.com/a3510377/school-clock#readme"
 }

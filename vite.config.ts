@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { defineConfig } from 'vite';
+import { builtinModules } from 'module';
 import vue from '@vitejs/plugin-vue';
 import * as path from 'path';
 import electron from 'vite-plugin-electron';
@@ -40,10 +41,12 @@ export default defineConfig({
     chunkSizeWarningLimit: 2000,
     rollupOptions: {
       output: {
-        entryFileNames: `assets/js/[name]-[hash].js`,
-        chunkFileNames: `assets/js/[name]-[hash].js`,
-        assetFileNames: `assets/[ext]/[name]-[hash].[ext]`,
+        format: 'cjs',
       },
+      external: ['electron', ...builtinModules],
     },
+  },
+  optimizeDeps: {
+    exclude: ['electron'],
   },
 });

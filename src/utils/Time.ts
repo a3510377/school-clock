@@ -1,4 +1,4 @@
-import { timeFormatType } from 'types/data';
+import { timeFormatType } from '@/types/data';
 
 export const getTime = (time?: Date) => {
   const now = time || new Date();

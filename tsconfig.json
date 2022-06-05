@@ -26,8 +26,6 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "src/**/*.json",
-    "types/**/*.ts",
-    "types/**/*.d.ts",
     "electron-main/**/*.ts",
     "electron-preload/**/*.ts"
   ],
