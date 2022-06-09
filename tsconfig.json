@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "module": "esnext",
-    "target": "es6",
+    "module": "es2022",
+    "target": "es2017",
     "removeComments": true,
     "useDefineForClassFields": true,
     "allowSyntheticDefaultImports": true,
